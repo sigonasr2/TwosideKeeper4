@@ -17,6 +17,22 @@ public class CommandHandler {
 	}
 	
 	public boolean runCommand() {
-		
+		CommandResult result = CommandResult.INVALIDCOMMAND;
+		switch (cmd.getName().toLowerCase()) {
+			case "scan":{
+				result = new ScanCommand(sender).runCommand();
+			}break;
+			case "pedestal_check":{
+				result = new ItemPedestalCheckCommand(sender).runCommand();
+			}break;
+			case "pedestal_create":{
+				result = new ItemPedestalCreateCommand(sender).runCommand();
+			}break;
+		}
+		if (result!=CommandResult.OKAY) {
+			sender.sendMessage(result.getResponse());
+			return false;
+		}
+		return true;
 	}
 }

@@ -11,7 +11,7 @@ public class AdvancedLocation {
 	Location l;
 	
 	public AdvancedLocation(Block b) {
-		this(b.getLocation());
+		this(b.getLocation().add(0.5,1,0.5));
 	}
 	
 	public AdvancedLocation(Entity e) {
@@ -22,8 +22,18 @@ public class AdvancedLocation {
 		this.l = l;
 	}
 	
+	public Location getLocation() {
+		return l;
+	}
+	
 	public Collection<Entity> getNearbyEntities(double distance) {
-		return l.getWorld().getNearbyEntities(l, distance, distance, distance).removeIf())
+		return l.getWorld().getNearbyEntities(l, distance, distance, distance);
+	}
+
+	public Collection<Entity> getNearbyEntities(double distance,Predicate<Entity> remove_filter) {
+		Collection<Entity> ents = l.getWorld().getNearbyEntities(l, distance, distance, distance);
+		ents.removeIf(remove_filter);
+		return ents;
 	}
 	
 }
